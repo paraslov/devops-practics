@@ -1,9 +1,16 @@
 FROM node:20-alpine
-ARG PORT
-ENV PORT=$PORT
+ENV NODE_ENV=production
+ENV PORT=3000
+
 WORKDIR /app
-COPY package.json ./
-RUN npm install
-COPY app.js ./
-EXPOSE ${PORT}
+
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+
+COPY . .
+
+RUN addgroup -S nodejs && adduser -S nodeuser -G nodejs
+USER nodeuser
+
+EXPOSE 3000
 CMD ["node", "app.js"]

@@ -1,21 +1,31 @@
-const http = require('http');
+const http = require("http");
 
-const hostname = '0.0.0.0';
+const hostname = "0.0.0.0";
 const port = process.env.PORT || 3001;
 
-const app = (req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello, World!\n');
-};
+const server = http.createServer((req, res) => {
+  if (req.url === "/" && req.method === "GET") {
+    // endpoint /
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("Hello, World!\n");
+  } else if (req.url === "/api/users" && req.method === "GET") {
+    // endpoint /api/users
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(
+      JSON.stringify({
+        users: [
+          { id: 1, name: "John Doe" },
+          { id: 2, name: "Jane Doe" },
+        ],
+      })
+    );
+  } else {
+    // если путь не найден — 404
+    res.writeHead(404, { "Content-Type": "text/plain" });
+    res.end("Not Found\n");
+  }
+});
 
-let server;
-
-if (require.main === module) {
-    server = http.createServer(app);
-    server.listen(port, hostname, () => {
-        console.log(`Server running at http://${hostname}:${port}/`);
-    });
-}
-
-module.exports = { app, server };
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
