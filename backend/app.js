@@ -6,8 +6,9 @@ const port = process.env.PORT || 3001;
 const server = http.createServer((req, res) => {
   if (req.url === "/" && req.method === "GET") {
     // endpoint /
+    const podIP = process.env.POD_IP;
     res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Hello, World!\n");
+    res.end(`Hello, World!\n POD IP: ${podIP}\n`);
   } else if (req.url === "/api/users" && req.method === "GET") {
     // endpoint /api/users
     res.writeHead(200, { "Content-Type": "application/json" });

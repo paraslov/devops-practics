@@ -5,6 +5,7 @@ metadata:
   labels:
     app: backend-pod
 spec:
+  replicas: 3
   selector:
     matchLabels:
       project: backend-pod
@@ -19,6 +20,10 @@ spec:
           env:
             - name: PORT
               value: "8000"
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
           ports:
             - containerPort: 8080
   
