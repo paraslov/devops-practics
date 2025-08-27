@@ -7,6 +7,4 @@ metadata:
 spec:
   containers:
     - name: frontend-pod
-      image: frontend:latest
-      ports:
-        - containerPort: 3000
+      image: paraslov/frontend-for-devops:latest

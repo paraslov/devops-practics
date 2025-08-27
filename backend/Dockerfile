@@ -1,6 +1,6 @@
 FROM node:20-alpine
 ENV NODE_ENV=production
-ENV PORT=3000
+ENV PORT=8000
 
 WORKDIR /app
 
@@ -12,5 +12,5 @@ COPY . .
 RUN addgroup -S nodejs && adduser -S nodeuser -G nodejs
 USER nodeuser
 
-EXPOSE 3000
+EXPOSE 8000
 CMD ["node", "app.js"]

@@ -13,6 +13,8 @@ kubectl get pod --all-namespaces
 kubectl get svc --all-namespaces
 kubectl get namespace
 
+we can add flag -w to watch changes
+
 
 kubectl run nginx-pod --image=nginx:latest --port=80
 
@@ -27,3 +29,5 @@ kubectl delete svc/nginx-pod
 kubectl apply -f nginx-pod.yaml
 
 kubectl apply -f nginx-service.yaml
+
+minikube tunnel
